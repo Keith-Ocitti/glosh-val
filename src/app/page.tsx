@@ -41,14 +41,16 @@ export default function ValentineProposal() {
 
   const handleNoHover = () => {
     let newX, newY;
+    let attempts = 0;
     
-    // Generate positions until we find a safe one
+    // Generate positions until we find a safe one or max attempts reached
     do {
       newX = Math.random() * 200 - 100;
-      newY = Math.random() * 200 - 100;
+      newY = Math.random() * 100 + 20; // Only move to spaces below (20px to 120px down)
+      attempts++;
     } while (
-      Math.abs(newX) < 60 || // Too close to Yes button
-      (newY > -40 && newY < 40) // Too close to content area
+      Math.abs(newX) < 60 && // Keep away from Yes button
+      attempts < 20
     );
     
     setNoButtonPosition({ x: newX, y: newY });
