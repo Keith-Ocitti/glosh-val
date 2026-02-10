@@ -202,17 +202,17 @@ export default function ValentineProposal() {
             </svg>
           </div>
           
-          <p className="text-lg md:text-xl text-gray-700 mb-8 leading-relaxed px-4">
+          <p className="text-lg md:text-xl text-gray-700 mb-8 leading-relaxed px-4 font-comic-neue">
             Hey there Pumkin 😊
           </p>
           
-          <p className="text-xl md:text-2xl font-semibold text-pink-600 mb-8 px-4">
+          <p className="text-xl md:text-2xl font-semibold text-pink-600 mb-8 px-4 font-dancing-script">
             Will you be my Valentine? 🌹
           </p>
 
           {/* Success Message */}
           {showMessage && (
-            <div className="mb-6 text-2xl md:text-3xl font-bold text-green-600 animate-bounce px-4">
+            <div className="mb-6 text-2xl md:text-3xl font-bold text-green-600 animate-bounce px-4 font-dancing-script">
               YAY! I'm the happiest person alive! 🎉💖
             </div>
           )}
@@ -222,14 +222,14 @@ export default function ValentineProposal() {
             <div className="flex gap-4 justify-center items-center px-4">
               <button
                 onClick={handleYesClick}
-                className="px-4 py-2 bg-green-500 hover:bg-green-600 text-white font-bold text-sm rounded-full transform transition-all duration-200 hover:scale-110 shadow-lg"
+                className="px-4 py-2 bg-green-500 hover:bg-green-600 text-white font-bold text-sm rounded-full transform transition-all duration-200 hover:scale-110 shadow-lg font-comic-neue"
               >
                 YES! 💖
               </button>
               
               <button
                 onMouseEnter={handleNoHover}
-                className="px-4 py-2 bg-red-500 hover:bg-red-600 text-white font-bold text-sm rounded-full transform transition-all duration-200 shadow-lg relative"
+                className="px-4 py-2 bg-red-500 hover:bg-red-600 text-white font-bold text-sm rounded-full transform transition-all duration-200 shadow-lg relative font-comic-neue"
                 style={{
                   transform: `translate(${noButtonPosition.x}px, ${noButtonPosition.y}px)`,
                 }}
