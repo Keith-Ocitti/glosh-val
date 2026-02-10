@@ -1,6 +1,7 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
+
 
 interface Heart {
   id: number;
@@ -23,6 +24,8 @@ export default function ValentineProposal() {
   const [bubbles, setBubbles] = useState<Bubble[]>([]);
   const [showMessage, setShowMessage] = useState(false);
   const [puppiesDancing, setPuppiesDancing] = useState(false);
+  const canMoveRef = useRef(true);
+
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -40,21 +43,30 @@ export default function ValentineProposal() {
   }, []);
 
   const handleNoHover = () => {
-    let newX, newY;
-    let attempts = 0;
-    
-    // Generate positions until we find a safe one or max attempts reached
-    do {
-      newX = Math.random() * 200 - 100;
-      newY = Math.random() * 100 + 20; // Only move to spaces below (20px to 120px down)
-      attempts++;
-    } while (
-      Math.abs(newX) < 60 && // Keep away from Yes button
-      attempts < 20
-    );
-    
-    setNoButtonPosition({ x: newX, y: newY });
-  };
+  if (!canMoveRef.current) return;
+
+  canMoveRef.current = false;
+
+  let newX, newY;
+  let attempts = 0;
+
+  do {
+    newX = Math.random() * 200 - 100;
+    newY = Math.random() * 100 + 20;
+    attempts++;
+  } while (
+    Math.abs(newX) < 60 &&
+    attempts < 20
+  );
+
+  setNoButtonPosition({ x: newX, y: newY });
+
+  // Cooldown (prevents spam on mobile)
+  setTimeout(() => {
+    canMoveRef.current = true;
+  }, 250);
+};
+
 
   const handleYesClick = () => {
     setShowBubbles(true);
@@ -229,8 +241,9 @@ export default function ValentineProposal() {
                 YES! 💖
               </button>
               
-              <button
-                onMouseEnter={handleNoHover}
+             <button
+                onMouseEnter={handleNoHover}     // Desktop
+                onTouchStart={handleNoHover}    // Mobile
                 className="px-4 py-2 bg-red-500 hover:bg-red-600 text-white font-bold text-sm rounded-full transform transition-all duration-200 shadow-lg relative font-comic-neue"
                 style={{
                   transform: `translate(${noButtonPosition.x}px, ${noButtonPosition.y}px)`,
